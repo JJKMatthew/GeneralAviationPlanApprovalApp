@@ -164,8 +164,8 @@ namespace GeneralAviationPlanApprovalApp
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // 跳转到管制人员界面 (AdminUser)
-                    //AdminUser adminForm = new AdminUser(userInfo);
-                    AdminUser adminForm = new AdminUser();
+                    AdminUser adminForm = new AdminUser(userInfo);
+                    //AdminUser adminForm = new AdminUser();
                     adminForm.Show();
                     this.Hide();
                 }
