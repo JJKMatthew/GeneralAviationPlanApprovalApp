@@ -178,6 +178,12 @@
     <Compile Include="Forms\AdminForm\PendingApprovalForm.Designer.cs">
       <DependentUpon>PendingApprovalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdminForm\ApprovalDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminForm\ApprovalDatabaseForm.Designer.cs">
+      <DependentUpon>ApprovalDatabaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EnterpriseForms\EnterpriseUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +212,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GAPADataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GAPADataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GAPADataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AdminForm\AdminUser.resx">
@@ -213,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm\AlreadyApprovalForm.resx">
       <DependentUpon>AlreadyApprovalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminForm\ApprovalDatabaseForm.resx">
+      <DependentUpon>ApprovalDatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm\PendingApprovalForm.resx">
       <DependentUpon>PendingApprovalForm.cs</DependentUpon>
@@ -250,6 +264,17 @@
     </None>
     <None Include="GAPADataSet1.xss">
       <DependentUpon>GAPADataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="GAPADataSet2.xsc">
+      <DependentUpon>GAPADataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="GAPADataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GAPADataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GAPADataSet2.xss">
+      <DependentUpon>GAPADataSet2.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

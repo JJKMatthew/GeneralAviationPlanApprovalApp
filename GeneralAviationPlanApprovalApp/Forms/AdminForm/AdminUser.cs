@@ -120,10 +120,10 @@ namespace GeneralAviationPlanApprovalApp
             OpenChildForm(form, "已审批计划");
         }
 
-        // 审批数据库
+        // 审批数据库finsh
         private void 审批数据库ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ApprovalDatabaseForm form = new ApprovalDatabaseForm();
+            ApprovalDatabaseForm form = new ApprovalDatabaseForm(currentUser, admainForm);
             OpenChildForm(form, "审批数据库");
         }
 
@@ -266,10 +266,6 @@ namespace GeneralAviationPlanApprovalApp
 
 
     // 其他窗体类（按需创建）
-    public class ApprovalDatabaseForm : Form
-    {
-        public ApprovalDatabaseForm() { this.Text = "审批数据库"; }
-    }
 
     public class PendingAlertsForm : Form
     {
