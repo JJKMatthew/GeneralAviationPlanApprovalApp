@@ -70,25 +70,13 @@ namespace GeneralAviationPlanApprovalApp
                 return;
             }
 
-            // 验证用户ID和密码
-            if (ValidateLogin(userId, password))
-            {
-                // 获取用户信息
-                UserInfo userInfo = GetUserInfo(userId);
+            // 验证用户ID和密码，并获取用户信息
+            UserInfo userInfo = ValidateLoginAndGetInfo(userId, password);
 
-                if (userInfo != null)
-                {
-                    // 登录成功，跳转到主窗体
-                    //Form2 mainForm = new Form2(userInfo);
-                    Form2 mainForm = new Form2();
-                    mainForm.Show();
-                    this.Hide(); // 隐藏登录窗体
-                }
-                else
-                {
-                    MessageBox.Show("获取用户信息失败！", "错误",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            if (userInfo != null)
+            {
+                // 登录成功，根据用户类型跳转到不同界面
+                JumpToUserInterface(userInfo);
             }
             else
             {
@@ -99,7 +87,7 @@ namespace GeneralAviationPlanApprovalApp
             }
         }
 
-        private bool ValidateLogin(int userId, string password)
+        private UserInfo ValidateLoginAndGetInfo(int userId, string password)
         {
             string connectionString = "";
             SqlConnection connection = null;
@@ -111,23 +99,49 @@ namespace GeneralAviationPlanApprovalApp
                 connection = new SqlConnection(connectionString);
                 connection.Open();
 
-                // 使用参数化查询防止SQL注入
-                string sql = "SELECT COUNT(*) FROM User_Info WHERE UserID = @UserID AND Password = @Password";
+                // 同时验证登录并获取用户信息
+                string sql = @"
+                    SELECT UserID, Username, UserType, CreatedTime 
+                    FROM User_Info 
+                    WHERE UserID = @UserID AND Password = @Password";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@UserID", userId);
                     command.Parameters.AddWithValue("@Password", password);
 
-                    int count = Convert.ToInt32(command.ExecuteScalar());
-                    return count > 0;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            try
+                            {
+                                UserInfo userInfo = new UserInfo
+                                {
+                                    UserID = Convert.ToInt16(reader["UserID"]),
+                                    Username = reader["Username"].ToString(),
+                                    UserType = reader["UserType"].ToString(),
+                                    CreatedTime = Convert.ToDateTime(reader["CreatedTime"])
+                                };
+                                return userInfo;
+                            }
+                            catch (InvalidCastException ex)
+                            {
+                                // 如果类型转换出错，使用更安全的方式
+                                MessageBox.Show($"数据类型转换错误：{ex.Message}\n请检查数据库字段类型", "错误",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return null;
+                            }
+                        }
+                    }
                 }
+                return null;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("数据库连接错误：" + ex.Message, "错误",
+                MessageBox.Show("数据库验证错误：" + ex.Message, "错误",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                return null;
             }
             finally
             {
@@ -139,55 +153,43 @@ namespace GeneralAviationPlanApprovalApp
             }
         }
 
-        private UserInfo GetUserInfo(int userId)
+        private void JumpToUserInterface(UserInfo userInfo)
         {
-            string connectionString = "";
-            SqlConnection connection = null;
-
             try
             {
-                // 获取连接字符串
-                connectionString = ConfigurationManager.ConnectionStrings["myconnstring"].ConnectionString;
-                connection = new SqlConnection(connectionString);
-                connection.Open();
-
-                // 查询用户详细信息
-                string sql = "SELECT UserID, Username, UserType, CreatedTime FROM User_Info WHERE UserID = @UserID";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
+                // 根据UserType跳转到不同界面
+                if (userInfo.UserType == "管制人员")
                 {
-                    command.Parameters.AddWithValue("@UserID", userId);
+                    MessageBox.Show($"欢迎，管制人员 {userInfo.Username}！", "登录成功",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            UserInfo userInfo = new UserInfo
-                            {
-                                UserID = reader.GetInt16(reader.GetOrdinal("UserID")),
-                                Username = reader.GetString(reader.GetOrdinal("Username")),
-                                UserType = reader.GetString(reader.GetOrdinal("UserType")),
-                                CreatedTime = reader.GetDateTime(reader.GetOrdinal("CreatedTime"))
-                            };
-                            return userInfo;
-                        }
-                    }
+                    // 跳转到管制人员界面 (AdminUser)
+                    //AdminUser adminForm = new AdminUser(userInfo);
+                    AdminUser adminForm = new AdminUser();
+                    adminForm.Show();
+                    this.Hide();
                 }
-                return null;
+                else if (userInfo.UserType == "企业")
+                {
+                    MessageBox.Show($"欢迎，企业用户 {userInfo.Username}！", "登录成功",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // 跳转到企业用户界面 
+                    //EnterpriseUser enterpriseForm = new EnterpriseUser(userInfo);
+                    EnterpriseUser enterpriseForm = new EnterpriseUser();
+                    enterpriseForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show($"未知的用户类型：{userInfo.UserType}", "错误",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("获取用户信息错误：" + ex.Message, "错误",
+                MessageBox.Show($"跳转界面失败：{ex.Message}", "错误",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-            finally
-            {
-                // 确保连接关闭
-                if (connection != null && connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
             }
         }
 
@@ -201,35 +203,13 @@ namespace GeneralAviationPlanApprovalApp
             }
         }
 
-        // 按回车键从用户ID框跳转到密码框
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                // 验证用户ID是否为数字
-                string userIdText = textBox1.Text.Trim();
-                if (!string.IsNullOrEmpty(userIdText) && !int.TryParse(userIdText, out _))
-                {
-                    MessageBox.Show("用户ID必须为数字！", "提示",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBox1.Focus();
-                    textBox1.SelectAll();
-                    e.Handled = true;
-                    return;
-                }
-
-                textBox2.Focus();
-                e.Handled = true;
-            }
-        }
-
-        // 限制用户ID文本框只能输入数字
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
             // 允许数字、退格键、回车键
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+                return;
             }
 
             // 如果是回车键，跳转到密码框

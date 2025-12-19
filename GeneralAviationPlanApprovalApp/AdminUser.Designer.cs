@@ -1,6 +1,6 @@
 ﻿namespace GeneralAviationPlanApprovalApp
 {
-    partial class Form2
+    partial class AdminUser
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // AdminUser
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form2";
+            this.Name = "AdminUser";
+            this.Text = "管理员审批平台";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
