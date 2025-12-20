@@ -129,17 +129,17 @@ namespace GeneralAviationPlanApprovalApp
             OpenChildForm(form, "审批数据库");
         }
 
-        // 待告警信息
+        // 待告警信息finsh
         private void 待告警信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PendingAlertsForm form = new PendingAlertsForm();
+            PendingAlertsForm form = new PendingAlertsForm(currentUser);
             OpenChildForm(form, "待告警信息");
         }
 
         // 已告警信息
         private void 已告警信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProcessedAlertsForm form = new ProcessedAlertsForm();
+            ProcessedAlertsForm form = new ProcessedAlertsForm(currentUser);
             OpenChildForm(form, "已告警信息");
         }
 
@@ -197,16 +197,6 @@ namespace GeneralAviationPlanApprovalApp
     // ========== 各个功能窗体的简单实现 ==========
 
     // 其他窗体类（按需创建）
-
-    public class PendingAlertsForm : Form
-    {
-        public PendingAlertsForm() { this.Text = "待告警信息"; }
-    }
-
-    public class ProcessedAlertsForm : Form
-    {
-        public ProcessedAlertsForm() { this.Text = "已告警信息"; }
-    }
 
     public class AlertHistoryForm : Form
     {

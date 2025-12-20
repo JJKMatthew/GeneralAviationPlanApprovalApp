@@ -92,7 +92,7 @@ CREATE TABLE Approval_Log (
 );
 GO
 
--- 7. 告警通知表（告警ID、计划ID、审查人ID、告警类型、内容、是否已读、创建时间）
+-- 7. 告警通知表（告警ID、计划ID、审查人ID、告警类型、内容、是否已读（是否告警0为否）、创建时间）
 CREATE TABLE Alert_Notification (
     AlertID INT IDENTITY(1,1) PRIMARY KEY,
     PlanID INT NOT NULL FOREIGN KEY REFERENCES Flight_Plan(PlanID),

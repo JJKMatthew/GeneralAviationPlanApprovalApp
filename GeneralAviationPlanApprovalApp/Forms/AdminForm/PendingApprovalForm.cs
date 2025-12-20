@@ -69,30 +69,6 @@ namespace GeneralAviationPlanApprovalApp.Forms.AdminForm
 
                         // 绑定到DataGridView
                         dataGridView1.DataSource = dt;
-
-                        
-                        //// 设置列标题（可选）
-                        //if (dataGridView1.Columns.Count > 0)
-                        //{
-                        //    //dataGridView1.Columns["PlanID"].HeaderText = "计划ID";
-                        //    dataGridView1.Columns["EnterpriseID"].HeaderText = "企业ID";
-                        //    dataGridView1.Columns["AircraftID"].HeaderText = "机型";
-                        //    dataGridView1.Columns["PilotID"].HeaderText = "飞行员";
-                        //    dataGridView1.Columns["StartTime"].HeaderText = "开始时间";
-                        //    dataGridView1.Columns["EndTime"].HeaderText = "结束时间";
-                        //    dataGridView1.Columns["RouteDescription"].HeaderText = "航线描述";
-                        //    dataGridView1.Columns["SubmitTime"].HeaderText = "提交时间";
-
-                        //    // 设置自动调整列宽
-                        //    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                        //    // 设置只读
-                        //    dataGridView1.ReadOnly = true;
-
-                        //    // 设置选择模式
-                        //    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                        //    dataGridView1.MultiSelect = true;
-                        //}
                     }
                 }
             }

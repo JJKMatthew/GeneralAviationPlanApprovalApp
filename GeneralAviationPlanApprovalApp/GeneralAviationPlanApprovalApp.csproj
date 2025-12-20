@@ -172,6 +172,12 @@
     <Compile Include="Forms\AdminForm\AlreadyApprovalForm.Designer.cs">
       <DependentUpon>AlreadyApprovalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdminForm\PendingAlertsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminForm\PendingAlertsForm.Designer.cs">
+      <DependentUpon>PendingAlertsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AdminForm\PendingApprovalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,12 @@
     </Compile>
     <Compile Include="Forms\AdminForm\ApprovalDatabaseForm.Designer.cs">
       <DependentUpon>ApprovalDatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdminForm\ProcessedAlertsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminForm\ProcessedAlertsForm.Designer.cs">
+      <DependentUpon>ProcessedAlertsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\EnterpriseForms\EnterpriseUser.cs">
       <SubType>Form</SubType>
@@ -217,6 +229,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GAPADataSet2.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GAPADataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GAPADataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="GAPADataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GAPADataSet4.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AdminForm\AdminUser.resx">
@@ -228,8 +250,14 @@
     <EmbeddedResource Include="Forms\AdminForm\ApprovalDatabaseForm.resx">
       <DependentUpon>ApprovalDatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminForm\PendingAlertsForm.resx">
+      <DependentUpon>PendingAlertsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm\PendingApprovalForm.resx">
       <DependentUpon>PendingApprovalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminForm\ProcessedAlertsForm.resx">
+      <DependentUpon>ProcessedAlertsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\loggingForms\logging.resx">
       <DependentUpon>logging.cs</DependentUpon>
@@ -275,6 +303,28 @@
     </None>
     <None Include="GAPADataSet2.xss">
       <DependentUpon>GAPADataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="GAPADataSet3.xsc">
+      <DependentUpon>GAPADataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="GAPADataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GAPADataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GAPADataSet3.xss">
+      <DependentUpon>GAPADataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="GAPADataSet4.xsc">
+      <DependentUpon>GAPADataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="GAPADataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GAPADataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GAPADataSet4.xss">
+      <DependentUpon>GAPADataSet4.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
