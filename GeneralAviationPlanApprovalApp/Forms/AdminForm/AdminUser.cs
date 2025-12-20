@@ -17,7 +17,6 @@ namespace GeneralAviationPlanApprovalApp
         // 存储当前打开的子窗体
         private Form currentChildForm = null;
         private Panel containerPanel = null;
-        private HomePage homePage = null;
         private UserInfo currentUser;
         private AdminUser admainForm;
 
@@ -33,7 +32,7 @@ namespace GeneralAviationPlanApprovalApp
         private void InitializeHomePage()
         {
             this.Text = "通用航空审批平台 - 管理员";
-            this.Size = new Size(1200, 700);
+            this.Size = new Size(800, 500);
             this.StartPosition = FormStartPosition.CenterScreen;
 
             // 创建容器Panel
@@ -60,14 +59,12 @@ namespace GeneralAviationPlanApprovalApp
             // 清除容器中的所有控件
             containerPanel.Controls.Clear();
 
-            // 创建并显示首页
-            homePage = new HomePage();
-            homePage.TopLevel = false;
-            homePage.FormBorderStyle = FormBorderStyle.None;
-            homePage.Dock = DockStyle.Fill;
-
-            containerPanel.Controls.Add(homePage);
-            homePage.Show();
+            // 显示首页
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
 
             // 更新窗口标题
             this.Text = "通用航空审批平台 - 管理员 - 首页";
@@ -89,6 +86,11 @@ namespace GeneralAviationPlanApprovalApp
 
             // 清除容器中的所有控件
             containerPanel.Controls.Clear();
+            label1.Visible = false;
+            label2.Visible = false;
+            label3.Visible = false;
+            label4.Visible = false;
+            label5.Visible = false;
 
             // 将子窗体添加到容器
             containerPanel.Controls.Add(childForm);
@@ -193,77 +195,6 @@ namespace GeneralAviationPlanApprovalApp
     }
 
     // ========== 各个功能窗体的简单实现 ==========
-
-    // 首页窗体
-    public class HomePage : Form
-    {
-        public HomePage()
-        {
-            InitializeHomePage();
-        }
-
-        private void InitializeHomePage()
-        {
-            this.Text = "首页";
-
-            // 创建欢迎标题
-            Label lblWelcome = new Label();
-            lblWelcome.Text = "通用航空飞行计划审批平台";
-            lblWelcome.Font = new Font("宋体", 24, FontStyle.Bold);
-            lblWelcome.ForeColor = Color.DarkBlue;
-            lblWelcome.Location = new Point(150, 50);
-            lblWelcome.Size = new Size(600, 50);
-            lblWelcome.TextAlign = ContentAlignment.MiddleCenter;
-            this.Controls.Add(lblWelcome);
-
-            // 创建功能简介
-            Label lblIntro = new Label();
-            lblIntro.Text = "欢迎使用通用航空飞行计划审批平台\n\n请从顶部菜单选择需要的功能：\n• 审批工作台 - 处理飞行计划审批\n• 告警工作台 - 查看和处理系统告警\n• 企业数据库 - 管理企业、飞行员和飞行器信息";
-            lblIntro.Font = new Font("宋体", 14);
-            lblIntro.Location = new Point(100, 150);
-            lblIntro.Size = new Size(800, 200);
-            lblIntro.TextAlign = ContentAlignment.TopCenter;
-            this.Controls.Add(lblIntro);
-
-            // 添加统计面板
-            Panel statsPanel = new Panel();
-            statsPanel.BorderStyle = BorderStyle.FixedSingle;
-            statsPanel.Location = new Point(100, 350);
-            statsPanel.Size = new Size(800, 150);
-
-            // 添加统计项
-            string[] statsTitles = { "今日待审批", "今日已审批", "今日告警", "在线企业" };
-            int[] statsValues = { 12, 45, 3, 8 };
-            Color[] statsColors = { Color.Red, Color.Green, Color.Orange, Color.Blue };
-
-            for (int i = 0; i < 4; i++)
-            {
-                int x = 50 + i * 180;
-
-                // 数值显示
-                Label lblValue = new Label();
-                lblValue.Text = statsValues[i].ToString();
-                lblValue.Font = new Font("宋体", 28, FontStyle.Bold);
-                lblValue.ForeColor = statsColors[i];
-                lblValue.Location = new Point(x, 30);
-                lblValue.Size = new Size(100, 50);
-                lblValue.TextAlign = ContentAlignment.MiddleCenter;
-                statsPanel.Controls.Add(lblValue);
-
-                // 标题
-                Label lblTitle = new Label();
-                lblTitle.Text = statsTitles[i];
-                lblTitle.Font = new Font("宋体", 12);
-                lblTitle.Location = new Point(x, 90);
-                lblTitle.Size = new Size(100, 30);
-                lblTitle.TextAlign = ContentAlignment.TopCenter;
-                statsPanel.Controls.Add(lblTitle);
-            }
-
-            this.Controls.Add(statsPanel);
-        }
-    }
-
 
     // 其他窗体类（按需创建）
 
